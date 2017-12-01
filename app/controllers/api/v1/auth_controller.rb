@@ -4,17 +4,17 @@ class Api::V1::AuthController < ApplicationController
   def show
     render json: {
       id: current_user.id,
-      user_name: current_user.user_name
+      user_name: current_user.username
     }
   end
 
   def create
     binding.pry
-    user = User.find_by(user_name: params[:user_name])
+    user = User.find_by(username: params[:username])
     if user.present? && user.authenticate(params[:password])
       render json: {
         id: user.id,
-        user_name: user.user_name,
+        username: user.username,
         jwt: JWT.encode({user_id: user.id}, nil, 'none')
         }
     else
