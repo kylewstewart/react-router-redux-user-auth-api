@@ -18,7 +18,7 @@ class Api::V1::AuthController < ApplicationController
         }
     else
       render json: {
-        eror: 'User Name or Password is Incorrect'
+        error: 'User Name or Password is Incorrect'
       }, status: 404
     end
   end
