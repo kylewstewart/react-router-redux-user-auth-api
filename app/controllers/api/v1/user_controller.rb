@@ -7,8 +7,17 @@ class Api::V1::UserController < ApplicationController
   end
 
   def create
-    binding.pry
-    username = params[:username]
+    user = User.create(create_user_params)
+    if user
+      render json: {
+        id: user.id,
+        username: user.username
+      }
+    else
+      render json: {
+        error: 'New user was not created, please try agian.'
+      }, status: 404
+    end
   end
 
   def show
@@ -25,8 +34,8 @@ class Api::V1::UserController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:username, :password)
+  def create_user_params
+    params.require(:newUser).permit(:username, :password)
   end
 
 end
