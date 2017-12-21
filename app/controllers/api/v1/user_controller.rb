@@ -7,7 +7,10 @@ class Api::V1::UserController < ApplicationController
   end
 
   def create
-    user = User.create(create_user_params)
+    user = User.create(
+      username: params['username'],
+      password: parmas['password']      
+    )
     if user
       render json: {
         id: user.id,
@@ -30,12 +33,6 @@ class Api::V1::UserController < ApplicationController
   end
 
   def destroy
-  end
-
-  private
-
-  def create_user_params
-    params.require(:newUser).permit(:username, :password)
   end
 
 end
